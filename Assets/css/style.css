@@ -1,0 +1,107 @@
+:root {
+    --g1: #31f4c3;
+    --g2: rgb(112, 18, 199);
+    --g3: rgb(25, 137, 241);
+    --round-edge: 6px;
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.background {
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0px;
+}
+.btn{
+    background-color: rgb(182, 215, 252);
+    border-radius: var(--round-edge);
+    border: white;
+    padding: 5px;
+}
+.btn:hover{
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.container{
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: var(--round-edge);
+    width: 90vw;
+    height: 80vh;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: relative;
+}
+.container:hover{
+    box-shadow: 0px 0px 10px 1px var(--g3);
+}
+
+.top-bar{
+    border-radius: var(--round-edge) var(--round-edge) 0px 0px;
+    background-color: var(--g1);
+    align-items: center;
+    display: flex;
+    height: 12.5%;
+    justify-content: space-around;
+}
+
+.middle-bar {
+    display: flex;
+    height: 75%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(248, 248, 248);
+}
+.bottom-bar{
+    border-radius: 0px 0px var(--round-edge) var(--round-edge);
+    background-color: var(--g1);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 12.5%;
+
+}
+.submit-btn, .highscore-btn{
+    background-color: white;
+    border: var(--g1);
+    border-radius: var(--round-edge);
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.submit-btn:hover ,.highscore-btn:hover, .start-btn:hover{
+    border: 1px solid black;
+    box-shadow: 0px 0px 10px 1px;
+}
+.start-btn{
+    background-color: #31f4c3;
+    border: white;
+    border-radius: var(--round-edge);
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.answer-btns{
+    display: flex;
+    gap: 15px;
+    margin: 20px;
+}
+#question{
+    background-color: #12f3f3;
+    margin: 10px;
+    padding: 10px;
+    border-radius: var(--round-edge);
+}
+
+.hide{
+    display: none;
+}
