@@ -4,13 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style alt="stylesheet" src="Assets/css/style.css"></style>
+    <link rel="stylesheet" href="/Assets/css/style.css" />
     <title>Quiz-Me</title>
 </head>
-<body>
-    <section>
-        <h1>Hey</h1>
+<body class ="background">
+    <section class = "container">
+        <div class = "top-bar">
+            <button id = "highscore" class="btn highscore-btn">Highscores</button>
+            <p id="timer">time left:</p>
+        </div>
+        <div class = "middle-bar">
+            <button id = "start-quiz" class ="btn start-btn">Start Quiz</button>
+            <h2 id="question" class="hide">Question</h2>
+            <div id="answer-btns" class="hide">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+        <div class = "bottom-bar">
+            <!-- <button id = "submit-btn" class="btn submit-btn">Submit</button> -->
+        </div>
     </section>
-    
+    <script src="script.js"></script>
 </body>
 </html>
