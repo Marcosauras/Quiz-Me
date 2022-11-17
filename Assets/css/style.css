@@ -1,5 +1,5 @@
 :root {
-    --g1: #31f4c3;
+    --g1: #2472e6;
     --g2: rgb(112, 18, 199);
     --g3: rgb(25, 137, 241);
     --round-edge: 6px;
@@ -12,7 +12,7 @@
 }
 
 .background {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(45, 55, 68);
     height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -23,9 +23,11 @@
     border-radius: var(--round-edge);
     border: white;
     padding: 5px;
+    margin: 15px;
 }
 .btn:hover{
-    border: 1px solid rgb(0, 0, 0);
+    background-color: rgb(53, 182, 182);
+    outline:1px solid rgb(0, 0, 0);
 }
 
 .container{
@@ -88,11 +90,7 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-.answer-btns{
-    display: flex;
-    gap: 15px;
-    margin: 20px;
-}
+
 #question{
     background-color: #12f3f3;
     margin: 10px;
@@ -108,4 +106,8 @@
 }
 .wrong{
     background-color: red;
+}
+.btn-style{
+    display: flex;
+    justify-content: center;
 }
