@@ -9,10 +9,34 @@ let startButton = document.getElementById("start-quiz")
 let answerBtnsElement = document.getElementById("answer-btns")
 let questionBox = document.getElementById("questions-in-this-box")
 let questionElement = document.getElementById("question")
+let highScore = document.getElementById("highscore")
+const button = document.createElement('button')
 
 let currentQuestion = 0;
 let score = 0;
 
+let myQuestions = [
+
+    // Physical, Data Link, Network, Transport, Session, Presentation, Application
+  {
+    question: "What order does the OSI model go in?",
+    answers: [
+      {text: "Physical, Data Link, Network, Transport, Session, Presentation, Application.", correct: true},
+      {text: "Physical, Network, Data Link, Transport, Session, Presentation, Application.", correct: false},
+      {text: "Physical, Data Link, Network, Session, Transport,  Presentation, Application.", correct: false},
+      {text: "Data Link, Network, Transport, Session, Presentation, Application, Physical.", correct: false}
+    ]
+  },
+  {
+    question: "What order does the OSI model go in?",
+    answers: [
+      {text: "Physical, Data Link, Network, Transport, Session, Presentation, Application.", correct: true},
+      {text: "Physical, Network, Data Link, Transport, Session, Presentation, Application.", correct: false},
+      {text: "Physical, Data Link, Network, Session, Transport,  Presentation, Application.", correct: false},
+      {text: "Data Link, Network, Transport, Session, Presentation, Application, Physical.", correct: false}
+    ]
+  }
+]
 startButton.addEventListener('click', startQuiz)
 // starts the quiz hides the start butten and shows the question and answer buttons
 function startQuiz(){
@@ -26,45 +50,69 @@ function startQuiz(){
 }
 
 function genNextQuestion(){
-    createQuestion(myQuestions[currentQuestion])
+  if (myQuestions.length < currentQuestion + 1){
+    endQuiz()
+  }else{
+      // runs reset question
+    resetQuestion()
+  // runs create question on the next question
+   createQuestion(myQuestions[currentQuestion])
+  }
+
 
 }
-
 // generates the questions
 function createQuestion(myQuestions){
   questionElement.innerHTML = myQuestions.question
   // creates buttons for each answer
-  question.answers.forEach (answer => {
-    let button = document.createElement('button')
-    button.innerText = answer.text
-    button.classList.add('btn')
+  myQuestions.answers.forEach (answers => {
+
+    button.innerText = answers.text
+    button.classList.add('btn');
+    button.classList.add('btn-style');
     // checks if the answer is correct
-    if(answer.correct){
-       button.dataset.correct = answer.correct
+    if(answers.correct){
+       button.dataset.correct = answers.correct
     }
+    button.addEventListener('click', selectOption);
+    answerBtnsElement.appendChild(button);
   });
-  button.addEventListener('click', selectOption)
-  answerBtnsElement.appendChild(button)
+}
+function resetQuestion(){
+  while(answerBtnsElement.firstChild){
+  answerBtnsElement.removeChild(answerBtnsElement.firstChild)
+  }
+}
+// finds out if the answer choosen was right or wrong
+function selectOption(e){
+  let answerSelected = e.target
+  let correct = answerSelected.dataset.correct
+  setCorrectStatus(document.body, correct)
+  Array.from(answerBtnsElement.children).forEach(button => {
+    setCorrectStatus(button, button.dataset.correct)
+  })
+  console.log(currentQuestion)
+  console.log(myQuestions.length)
+
+  
+
 }
 
-function selectOption(){
+function setCorrectStatus(element, correct){
+  if (correct) {
+    element.classList.add('correct')
+    score = score + 100
+    currentQuestion+1;
+    }else {
+    element.classList.add('wrong')
+    currentQuestion+1;
+  }
+  genNextQuestion();
 
 }
 function endQuiz(){
-
+  questionElement.classList.add('hide')
+  button.classList.add('hide');
+  console.log("thank you for playing");
+  console.log(score)
 }
-console.log(myQuestions)
-// list of questions to be asked
-let myQuestions = [
-    {
-      question: "What order does the OSI model go in?",
-      // Physical, Data Link, Network, Transport, Session, Presentation, Application
-      answers: [
-          {text: "Physical, Data Link, Network, Transport, Session, Presentation, Application.", correct: true},
-          {text: "Physical, Network, Data Link, Transport, Session, Presentation, Application.", correct: false},
-          {text: "Physical, Data Link, Network, Session, Transport,  Presentation, Application.", correct: false},
-            {text: "Data Link, Network, Transport, Session, Presentation, Application, Physical,", correct: false}
-      ]
-    }
-
-]
