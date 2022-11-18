@@ -14,13 +14,15 @@ This website will be of interest to anyone interested in learning about Target's
 
 When you enter into the webpage you will be shown two options, start Quiz and High-scores.
 
-![Quiz me Landing Page](./assets/images/Screenshot-of-Quiz-me-landing-page.png "Quiz me Landing Page")
+![Quiz me Landing Page](/Assets/images/Screenshot-of-Quiz-me-landing-page.png "Quiz me Landing Page")
 
 after clicking the start quiz button you will be taken to the quiz page and will be able to answer questions on the quiz.
 
 
 
-![Questions](./assets/images/Screenshot%20of%20questions.png "Questions")
+![Questions](/Assets/images/Screenshot%20of%20questions.png "Questions")
+
+after answering the questions you will be given a score.
 
 ## Credits
 Marc Hamilton
