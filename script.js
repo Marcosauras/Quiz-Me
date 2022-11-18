@@ -5,114 +5,109 @@
 // tell you your score when you finish.
 // time you, tell you how much time you have left and when time runs out end quiz.
 
-let startButton = document.getElementById("start-quiz")
-let answerBtnsElement = document.getElementById("answer-btns")
-let questionBox = document.getElementById("questions-in-this-box")
-let questionElement = document.getElementById("question")
-let highScore = document.getElementById("highscore")
-const button = document.createElement('button')
+const question = document.querySelector("#question");
+const choices = Array.from(document.querySelectorAll(".choice-text"));
+const scoreText = document.querySelector("#score");
 
-let currentQuestion = 0;
-let score = 0;
-
-let myQuestions = [
-
-    // Physical, Data Link, Network, Transport, Session, Presentation, Application
-  {
-    question: "What order does the OSI model go in?",
-    answers: [
-      {text: "Physical, Data Link, Network, Transport, Session, Presentation, Application.", correct: true},
-      {text: "Physical, Network, Data Link, Transport, Session, Presentation, Application.", correct: false},
-      {text: "Physical, Data Link, Network, Session, Transport,  Presentation, Application.", correct: false},
-      {text: "Data Link, Network, Transport, Session, Presentation, Application, Physical.", correct: false}
-    ]
-  },
-  {
-    question: "What order does the OSI model go in?",
-    answers: [
-      {text: "Physical, Data Link, Network, Transport, Session, Presentation, Application.", correct: true},
-      {text: "Physical, Network, Data Link, Transport, Session, Presentation, Application.", correct: false},
-      {text: "Physical, Data Link, Network, Session, Transport,  Presentation, Application.", correct: false},
-      {text: "Data Link, Network, Transport, Session, Presentation, Application, Physical.", correct: false}
-    ]
-  }
-]
-startButton.addEventListener('click', startQuiz)
-// starts the quiz hides the start butten and shows the question and answer buttons
-function startQuiz(){
-    console.log("Quiz has started")
-    startButton.classList.add("hide")
-    answerBtnsElement.classList.remove("hide")
-    questionBox.classList.remove("hide")
-    questionElement.classList.remove("hide")
-    genNextQuestion()
-
-}
-
-function genNextQuestion(){
-  if (myQuestions.length < currentQuestion + 1){
-    endQuiz()
-  }else{
-      // runs reset question
-    resetQuestion()
-  // runs create question on the next question
-   createQuestion(myQuestions[currentQuestion])
-  }
-
-
-}
-// generates the questions
-function createQuestion(myQuestions){
-  questionElement.innerHTML = myQuestions.question
-  // creates buttons for each answer
-  myQuestions.answers.forEach (answers => {
-
-    button.innerText = answers.text
-    button.classList.add('btn');
-    button.classList.add('btn-style');
-    // checks if the answer is correct
-    if(answers.correct){
-       button.dataset.correct = answers.correct
+let currentQuestion= {}
+let acceptingAnswers = true
+let score = 0
+let questionCounter = 0
+let optionsAvailable =[]
+// questions being asked
+let questions = [
+    {
+        question: "what is 3 + 3?",
+        choice1: "3",
+        choice2: "4",
+        choice3: "5",
+        choice4: "6",
+        answer: 4,
+    },
+    {
+        question: "What is a DBO at Target?",
+        choice1: "Design Business Operator",
+        choice2: "Designated Business Operator",
+        choice3: "Deranged Business Operation",
+        choice4: "Designer with BO",
+        answer: 2,
+    },
+    {
+        question: "what is 10 * 10?",
+        choice1: "0100",
+        choice2: "101",
+        choice3: "1000",
+        choice4: "100",
+        answer: 4,
+    },
+    {
+        question: "what is 9 * 9?",
+        choice1: "81",
+        choice2: "99",
+        choice3: "18",
+        choice4: "89",
+        answer: 1,
     }
-    button.addEventListener('click', selectOption);
-    answerBtnsElement.appendChild(button);
-  });
-}
-function resetQuestion(){
-  while(answerBtnsElement.firstChild){
-  answerBtnsElement.removeChild(answerBtnsElement.firstChild)
-  }
-}
-// finds out if the answer choosen was right or wrong
-function selectOption(e){
-  let answerSelected = e.target
-  let correct = answerSelected.dataset.correct
-  setCorrectStatus(document.body, correct)
-  Array.from(answerBtnsElement.children).forEach(button => {
-    setCorrectStatus(button, button.dataset.correct)
-  })
-  console.log(currentQuestion)
-  console.log(myQuestions.length)
-
-  
-
+]
+// how many points per right
+let SCORE_POINTS = 25
+// how many questions
+let MAX_QUESTIONS = 4
+// starts the quiz
+startQuiz = () => {
+    questionCounter = 0
+    score = 0
+    optionsAvailable = [...questions]
+    getNewQuestion()
 }
 
-function setCorrectStatus(element, correct){
-  if (correct) {
-    element.classList.add('correct')
-    score = score + 100
-    currentQuestion+1;
-    }else {
-    element.classList.add('wrong')
-    currentQuestion+1;
-  }
-  genNextQuestion();
+function getNewQuestion(){
+    if(optionsAvailable.length === 0 || questionCounter > MAX_QUESTIONS){
+        localStorage.setItem('mostRecentScore', score)
 
+        return window.location.assign("/end.html")
+    }
+
+    questionCounter++
+    let questionsIndex = Math.floor(Math.random() * optionsAvailable.length)
+    currentQuestion = optionsAvailable[questionsIndex]
+    question.innerText = currentQuestion.question
+
+    choices.forEach(choice => {
+        let number = choice.dataset['number']
+        choice.innerText = currentQuestion['choice' + number]
+    })
+
+    optionsAvailable.splice(questionsIndex, 1)
+
+    acceptingAnswers = true
 }
-function endQuiz(){
-  questionElement.classList.add('hide')
-  button.classList.add('hide');
-  console.log("thank you for playing");
-  console.log(score)
+
+choices.forEach(choice => {
+    choice.addEventListener('click', e => {
+        if(!acceptingAnswers)return
+        acceptingAnswers = false
+        let selectedChoice = e.target
+        let selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = selectedAnswer == currentQuestion ? 'correct':
+        'incorrect'
+        if(classToApply === 'correct'){
+            incrementScore(SCORE_POINTS)
+        }
+
+        selectedChoice.parentElement.classList.add(classToApply)
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+
+        }, 1000)
+    })
+})
+
+incrementScore = num => {
+    score +=num
+    scoreText.innerHTML = score
 }
+
+startQuiz()
