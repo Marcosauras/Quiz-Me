@@ -1,0 +1,33 @@
+/* styling for the game html(the quiz page) */
+body{
+    background-color: rgb(37, 35, 35);
+}
+#question{
+    display: flex;
+    justify-content: center;
+    background-color: #12f3f3;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.hide{
+    display: none;
+}
+.btn{
+    padding: 10px;
+    margin-left: 15%;
+    color: white;
+    background-color: rgb(37, 37, 207);
+    border-radius: 10px;
+    display: block;
+}
+.btn:hover{
+    background-color: aliceblue;
+    color: black;
+}
+.score{
+    color: aliceblue;
+    display: flex;
+    justify-content: end;
+    margin-right: 10%;
+}
